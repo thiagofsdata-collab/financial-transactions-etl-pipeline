@@ -52,38 +52,40 @@ class PostgresLoader:
             return False
 
     def load(
-        self,
-        df: pd.DataFrame,
-        table_name: str,
-        if_exists: str = "append",
-        chunksize: int = 1000,
-    ) -> None:
-        """
-        Loads DataFrame into PostgreSQL table.
-
-        Args:
-            df: transformed DataFrame ready for storage
-            table_name: target table in PostgreSQL
-            if_exists: 'append' (default) or 'replace'
-                - append: adds rows — use for incremental daily loads
-                - replace: drops and recreates — use for full reloads
-            chunksize: rows per batch — 1000 is safe for most setups.
-                In production with 590k rows, tune this based on
-                available memory and network latency to the DB.
-        """
+    self,
+    df: pd.DataFrame,
+    table_name: str,
+    if_exists: str = "replace",
+) -> None:
         try:
             logger.info(f"Loading {len(df)} rows into table: {table_name}")
 
-            df.to_sql(
+            df.head(0).to_sql(
                 name=table_name,
                 con=self.engine,
                 if_exists=if_exists,
                 index=False,
-                chunksize=chunksize,
-                method="multi",
             )
+            logger.info(f"Table {table_name} structure created")
 
-            logger.info(f"Load complete — {len(df)} rows inserted into {table_name}")
+            conn = self.engine.raw_connection()
+            try:
+                cursor = conn.cursor()
+
+                import io
+                buffer = io.StringIO()
+                df.to_csv(buffer, index=False, header=False)
+                buffer.seek(0)
+
+                cursor.copy_expert(
+                    f"COPY {table_name} FROM STDIN WITH CSV NULL ''",
+                    buffer,
+                )
+                conn.commit()
+                logger.info(f"COPY complete — {len(df)} rows inserted into {table_name}")
+
+            finally:
+                conn.close()
 
         except Exception as e:
             logger.error(f"Load failed for table {table_name}: {e}")

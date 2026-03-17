@@ -80,7 +80,6 @@ class Pipeline:
                 df=df_clean,
                 table_name="transactions",
                 if_exists="replace",  # replace for first full load
-                chunksize=1000,
             )
             metrics["rows_loaded"] = len(df_clean)
             metrics["status"] = "success"
