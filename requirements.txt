@@ -17,3 +17,10 @@ pytest==8.2.0
 
 # Logging
 loguru==0.7.2
+
+# Notebooks
+jupyter==1.1.1
+ipykernel==6.29.5
+
+# Visualization
+plotly==5.22.0

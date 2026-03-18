@@ -33,3 +33,6 @@ Thumbs.db
 # Logs
 logs/*.log
 logs/*.zip
+
+# Notebook outputs (keep code, ignore heavy outputs)
+notebooks/eda_report.html
