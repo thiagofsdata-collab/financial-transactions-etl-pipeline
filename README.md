@@ -277,13 +277,9 @@ TestTransform
 
 ## 👤 Author
 
-**Thiago** — Junior Data Analyst transitioning to Data Engineering in Financial Services.
-
-- MBA in Financial Engineering — USP
-- Former Portfolio Head @ Student Investment Fund
-- Background in Accounting and ERP/CRM systems
-
-> *"Building pipelines with the rigor of accounting and the automation of engineering."*
+**Thiago Feliciano** — Data Analyst | Analytics Engineer
+[GitHub](https://github.com/thiagofsdata-collab) •
+[LinkedIn](https://linkedin.com/in/thiago-feliciano-40a1461b9/)
 
 ---
 
