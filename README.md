@@ -1,4 +1,4 @@
-# 🏦 Financial Transactions ETL Pipeline
+# 🏦 Fraude Detection ETL Pipeline
 
 ![CI](https://github.com/thiagofsdata-collab/financial-transactions-etl-pipeline/actions/workflows/ci.yml/badge.svg)
 ![Python](https://img.shields.io/badge/Python-3.13-blue)
